@@ -15,7 +15,7 @@ public class COMP258Labs {
      */
     public static void main(String[] args) {
       
-        System.out.println("Setting up a gift repository");
+        System.out.println("Settin");
     }
 
 }
