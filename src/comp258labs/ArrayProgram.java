@@ -42,9 +42,12 @@ public class ArrayProgram extends ConsoleFramework {
                 printNumbers();
                 
             }
-            if (choice ==2){
+            else if (choice ==2){
                 searchForNumber();
             }
+             else if (choice ==3){
+                searchForNumber();
+        }
         }
         
         public void printNumbers(){
@@ -68,6 +71,21 @@ public class ArrayProgram extends ConsoleFramework {
             }
             
         }
+        public void findAndReplace(){
+            boolean found = false;
+            int target = this.readInt("Please enter a number to replace");
+            int newValue = this.readInt ("Enter new value: ");
+            for (int i = 0; i < numbers.length; i++) {
+                if(target == numbers[i]){
+                    found = true;
+                    numbers[i] = newValue;
+                    System.out.println("Found. value at: " + (i+1) + " replaced with " + newValue);
+                    break;
+                }
+            }
+            if (!found){
+                System.out.println("Target not in collection");
+        }
     }
-    
+}
 
