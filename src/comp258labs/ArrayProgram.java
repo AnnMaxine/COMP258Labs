@@ -14,7 +14,7 @@ public class ArrayProgram extends ConsoleFramework {
         
     public static void main(String[] args) {
         ArrayProgram ap = new ArrayProgram();
-        ap.run();
+        ap.run(); 
         
     }
         public void startProgram(){
