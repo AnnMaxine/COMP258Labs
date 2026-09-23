@@ -4,6 +4,7 @@
  */
 package comp258labs;
 
+import Framework.ConsoleFramework;
 import java.util.ArrayList;
 /**
  *

@@ -4,6 +4,8 @@
  */
 package comp258labs;
 
+import Framework.ConsoleFramework;
+
 /**
  *
  * @author ANNAMARIE
