@@ -12,6 +12,7 @@ import Framework.ConsoleFramework;
  */
 public class LinkedListProgram extends ConsoleFramework {
      LinkedList numbers = new LinkedList();
+    
      public void startProgram(){
             int capacity = 20;
             numbers = new LinkedList();
@@ -29,11 +30,10 @@ public class LinkedListProgram extends ConsoleFramework {
         System.out.println("3. Print all");
         System.out.println("4. Get current");
         System.out.println("5. Get item at");
-        System.out.println("6. Get item by position");
-        System.out.println("7. Delete current");
-        System.out.println("8. Advance");
-        System.out.println("9. Start");
-        System.out.println("0. Exit");
+        System.out.println("6. Delete current");
+        System.out.println("7. Advance");
+        System.out.println("8. Start");
+        System.out.println("9. Exit");
         
         int option = this.readInt(">>");
         return option;
@@ -66,34 +66,77 @@ public class LinkedListProgram extends ConsoleFramework {
         }
     }
     public void addBefore(){
+        int value = readInt("Enter number:");
+        numbers.addBefore(value);
+        System.out.println("Added.");
     }
     public void addAfter(){
+        int value = readInt("Enter number:");
+        numbers.addAfter(value);
+        System.out.println("Added.");
     }
     public void printAll(){
+        numbers.print();
     }
     public void getCurrent(){
+        try{
         System.out.println("Current ="+ numbers.getCurrent());
+        
+        }catch(NoItemsException e){
+            System.out.println(e.toString());
+        }
     }
     
-    public void getItemAt(){
-   numbers.start();
+    public void getItemAt() {
+ 
     int pos = this.readInt("Enter Position");
-    for(int i=0; i<pos; i++){
-    numbers.advance();
-}
-        System.out.println("Current ="+ numbers.getCurrent());
-}
-   
+    
+    try{
+        System.out.println("Item =" + numbers.getItemAt(pos));
+    }
+    catch(OutOfBoundsException e){
+        System.out.println(e.toString());
+    }
+    }
+    
     public void delete(){
-   numbers.removeCurrent();
-    System.out.println("Current removed: current now="+numbers.getCurrent());
+   try {
+        numbers.removeCurrent();
+        System.out.println("Current removed.");
+
+        try {
+            System.out.println("Current now = " + numbers.getCurrent());
+        }
+        catch(NoItemsException e) {
+            System.out.println("There is no current item.");
+        }
+
+    }
+    catch(NoItemsException e) {
+        System.out.println(e.toString());
 }
+    }
     public void start(){
     numbers.start();
-    System.out.println("Current moved to start");
-}
-    public void advance(){
-    numbers.advance();
-    System.out.println("Current advanced: Current ");
+    
+    try{ 
+    System.out.println("Current moved to start:" +numbers.getCurrent());
+    }catch(NoItemsException e) {
+        System.out.println("The list is empty");
     }
+    }
+    public void advance(){
+    if(numbers.advance()) {
+
+        try {
+            System.out.println("Current = " + numbers.getCurrent());
+        } catch(NoItemsException e) {
+            System.out.println(e.toString());
+        }
+
+    } else {
+
+        System.out.println("Cannot advance.");
+    }
+}
 }

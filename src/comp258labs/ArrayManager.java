@@ -24,6 +24,7 @@ public class ArrayManager {
     }
 
     public ArrayManager(Object[] items) {
+        this.items = items;
         count = items.length;
     }
 
@@ -36,6 +37,10 @@ public class ArrayManager {
     }
 
     public Object get(int index) throws OutOfBoundsException {
+        
+        if(index < 0 || index >= count) {
+            throw new OutOfBoundsException();
+        }
         return items[index];
     }
 
@@ -50,19 +55,26 @@ public class ArrayManager {
         count++;
     }
 
-    public void remove(int pos) throws NoitemsException, OutOfBoundsException {
+    public void remove(int pos) throws NoItemsException, OutOfBoundsException {
 
-        if (isEmpty()) {
-            throw new NoitemsException();
-        }
-        if (pos < 0 || pos >= count) {
-            throw new OutOfBoundsException();
-        }
+    if (isEmpty()) {
+        throw new NoItemsException();
+    }
 
-        Object[] temp = new Object[items.length];
-        System.arraycopy(items, 0, temp, 0, pos);
-        System.arraycopy(items, pos + 1, temp, pos, items.length - pos - 1);
-        items = temp;
+    if (pos < 0 || pos >= count) {
+        throw new OutOfBoundsException();
+    }
+
+    Object[] temp = new Object[items.length];
+
+    System.arraycopy(items, 0, temp, 0, pos);
+
+    System.arraycopy(items, pos + 1, temp, pos, count - pos - 1);
+
+    items = temp;
+
+    count--;
+
     }
 
     public void addAt(Object item, int pos) {
@@ -100,33 +112,50 @@ public class ArrayManager {
             System.out.println(items[i]);
         }
     }
+ public void removeAllOccurances(Object o)
+        throws NoItemsException, OutOfBoundsException {
 
+    int i = 0;
+
+    while (i < count) {
+
+        if (items[i].equals(o)) {
+            remove(i);
+        } else {
+            i++;
+        }
+    }
+}
     public static void main(String[] args) {
-        ArrayManager am = new ArrayManager();
-        am.add(5);
-        am.add(17);
-        am.add(100);
-        am.add(15);
-        am.add(47);
-        am.add(2);
-        try {
-            am.remove(3);
-        } catch (NoitemsException e) {
-            System.out.println(e.toString());
-        } catch (OutOfBoundsException e) {
-            System.out.println(e.toString());
-        }
-        am.print();
-        System.out.println("AFTER");
-        am.addAt(555, 3);
-        am.addAt("DOG", 0);
 
-        try {
-            System.out.println("GET:" + am.get(120));
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        am.print();
-        // am.printArray();
+    ArrayManager am = new ArrayManager();
+
+    am.add(1);
+    am.add(3);
+    am.add(4);
+    am.add(5);
+    am.add(3);
+    am.add(4);
+    am.add(3);
+    am.add(4);
+    am.add(1);
+    am.add(2);
+    am.add(5);
+    am.add(6);
+
+    System.out.println("BEFORE:");
+    am.print();
+
+    try {
+        am.removeAllOccurances(4);
+    } catch (Exception e) {
+        System.out.println(e.toString());
+    }
+
+    System.out.println("AFTER:");
+    am.print();
+
+    System.out.println("SIZE: " + am.size());
+
     }
 }

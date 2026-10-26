@@ -26,7 +26,7 @@ public class Node {
         this.data = data;
     }
     
-    public static void mauin(String[] args){
+    public static void main(String[] args){
         Node n1 = new Node(7);
         Node n2 = new Node(15);
         Node n3 = new Node(26);

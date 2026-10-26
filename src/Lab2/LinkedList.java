@@ -8,12 +8,17 @@ package Lab2;
  *
  * @author ANNAMARIE
  */
+
 public class LinkedList {
 
     private Node items;
     private Node current;
+    private int count;
 
     public LinkedList() {
+        items = null;
+        current = null;
+        count = 0;
 
     }
 
@@ -25,8 +30,12 @@ public class LinkedList {
         this.items = Items;
     }
 
-    public Node getCurrent() {
-        return current;
+    public Object getCurrent() throws NoItemsException{
+         
+        if(current == null) {
+        throw new NoItemsException();
+    }
+        return current.getData();
     }
 
     public void setCurrent(Node current) {
@@ -43,6 +52,7 @@ public class LinkedList {
             current.next = n;
             current = current.next;
         }
+        count++;
     }
 
     public void print() {
@@ -54,12 +64,15 @@ public class LinkedList {
     }
 
     public boolean advance() {
-        if (current.next == null) {
-            return false;
-        } else {
-            current = current.next;
+        if(current == null) {
+        return false;
+    }
 
-        }
+    if(current.next == null) {
+        return false;
+    }
+
+    current = current.next;
         return true;
     }
 
@@ -77,6 +90,7 @@ public class LinkedList {
             current.next = n;
             current = n;
         }
+        count++;
     }
 
     public void addBefore(Object item) {
@@ -99,14 +113,17 @@ public class LinkedList {
             temp.next = n;
             current = n;
         }
+        count++;
     }
 
-    public void removecurrent() {
-
+    public void removeCurrent() throws NoItemsException{
+        if(current == null) {
+         throw new NoItemsException();
+}
         Node temp = items;
         if (temp == current) {
             //only 1 item in list
-            items = null;
+            items = current.next;
             current = null;
         } else {
             while (temp.next != current) {
@@ -115,27 +132,105 @@ public class LinkedList {
             temp.next = current.next; //or temp.next = temp.next.next;
             current = temp.next;
         }
+        count--;
     }
+    public Object getItemAt(int pos) throws OutOfBoundsException {
+
+    if(pos < 0 || pos >= count) {
+        throw new OutOfBoundsException();
+    }
+
+    Node temp = items;
+
+    for(int i = 0; i < pos; i++) {
+        temp = temp.next;
+    }
+
+    return temp.getData();
+}
+    public void removeAllOccurances(Object o) {
+
+    Node previous = null;
+    Node temp = items;
+
+    while(temp != null) {
+
+        if(temp.getData().equals(o)) {
+
+            if(temp == items) {
+                items = temp.next;
+            } else {
+                previous.next = temp.next;
+            }
+
+            if(current == temp) {
+                current = temp.next;
+            }
+
+            temp = temp.next;
+            count--;
+
+        } else {
+
+            previous = temp;
+            temp = temp.next;
+        }
+    }
+}
 
     public static void main(String[] args) {
-        LinkedList list = new LinkedList();
 
-        list.add(11);
-        list.add(77);
-        list.add(99);
-        list.add(55);
-        list.add(33);
-        //list.start();
-        //list.advance();
-        //list.advance();
-        //list.removecurrent();
-        list.addAfter(66);
-        list.addBefore(65);
-        list.addBefore(64);
-        list.addBefore(63);
+    LinkedList list = new LinkedList();
 
-        list.print();
+    list.addAfter(1);
+    list.addAfter(3);
+    list.addAfter(4);
+    list.addAfter(5);
+    list.addAfter(3);
+    list.addAfter(4);
+    list.addAfter(3);
+    list.addAfter(4);
+    list.addAfter(1);
+    list.addAfter(2);
+    list.addAfter(5);
+    list.addAfter(6);
 
+    System.out.println("BEFORE:");
+    list.print();
+
+    try {
+        list.removeAllOccurances(4);
+    } catch (Exception e) {
+        System.out.println(e.toString());
     }
 
+    System.out.println("AFTER:");
+    list.print();
+    }
+
+    public void recursivePrint() {
+        recursivePrint(items);
+    }
+
+    public void recursivePrint(Node temp) {
+        if (temp == null) {
+            return;
+        }
+
+        System.out.print(temp.getData() + " ");
+        recursivePrint(temp.next);
+    }
+
+    public void recursivePrintBackward() {
+        recursivePrintBackward(items);
+    }
+
+    public void recursivePrintBackward(Node temp) {
+        if (temp == null) {
+            return;
+        }
+
+        recursivePrintBackward(temp.next);
+        System.out.print(temp.getData() + " ");
+    }
 }
