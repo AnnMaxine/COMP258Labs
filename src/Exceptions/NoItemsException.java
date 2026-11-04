@@ -2,16 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package comp258labs;
+package Exceptions;
 
 /**
  *
  * @author ANNAMARIE
  */
-public class NoitemsException extends Exception {
+public class NoItemsException extends Exception{
     
-    public String toString() {
+    public String toString(){
         return "Operation not allowed on empty collection";
     }
-    
 }
